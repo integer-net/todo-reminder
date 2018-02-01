@@ -14,3 +14,6 @@ parameters:
         phpunit: []
         infection:
             threads: 4
+        todo_blame: []
+    extensions:
+        - IntegerNet\TodoBlame\GrumPhpExtension
