@@ -53,4 +53,62 @@ class TodoCommentsTest extends TestCase
             \iterator_to_array($comments)
         );
     }
+
+    public function testFormat()
+    {
+        $comments = new TodoComments(
+            new TodoComment('file1.php', 7, '//TODO implement', 3),
+            new TodoComment('file1.php', 12, '//TODO implement', 3),
+            new TodoComment(
+                'file2.php',
+                10,
+                <<<PHP
+/**
+ * Some docblock
+ *
+ * @todo document
+ */
+PHP
+                ,
+                1
+            )
+        );
+        $this->assertEquals(
+            <<<'TXT'
+The following TODO comments are NOT DONE:
+
+file1.php
+=========
+
+Line 7:
+
+//TODO implement
+
+(NOT DONE since 3 commits on that file)
+
+Line 12:
+
+//TODO implement
+
+(NOT DONE since 3 commits on that file)
+
+file2.php
+=========
+
+Line 10:
+
+/**
+ * Some docblock
+ *
+ * @todo document
+ */
+
+(NOT DONE since 1 commit on that file)
+
+
+TXT
+            ,
+            $comments->formatText()
+        );
+    }
 }

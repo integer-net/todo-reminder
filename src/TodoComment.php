@@ -28,4 +28,26 @@ class TodoComment
         $this->comment = $comment;
         $this->notDoneSince = $notDoneSince;
     }
+
+    public function isInSameFile(TodoComment $other): bool
+    {
+        return $other->file === $this->file;
+    }
+
+    public function file(): string
+    {
+        return $this->file;
+    }
+
+    public function formatText(): string
+    {
+        $commits = $this->notDoneSince === 1 ? 'commit' : 'commits';
+        return "Line $this->lineNumber:
+
+$this->comment
+
+(NOT DONE since $this->notDoneSince $commits on that file)
+
+";
+    }
 }

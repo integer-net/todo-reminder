@@ -22,8 +22,21 @@ class TodoComments extends \ArrayIterator
         return $this->count() > 0;
     }
 
-    public function format(): string
+    public function formatText(): string
     {
-        return '';
+        $output = '';
+        if ($this->notEmpty()) {
+            $output .= "The following TODO comments are NOT DONE:\n\n";
+            foreach ($this as $comment) {
+                /** @var TodoComment $comment */
+                if (!isset($last) || !$comment->isInSameFile($last)) {
+                    $output .= $comment->file() . "\n";
+                    $output .= str_repeat('=', mb_strlen($comment->file())) . "\n\n";
+                }
+                $output .= $comment->formatText();
+                $last = $comment;
+            }
+        }
+        return $output;
     }
 }

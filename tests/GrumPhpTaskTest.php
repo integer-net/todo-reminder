@@ -99,6 +99,7 @@ class GrumPhpTaskTest extends TestCase
 
     public function testFailWithPhpFileThatContainsTodoComment()
     {
+        $this->markTestSkipped('Now we need a real repository, see FileInspectorTest');
         $pathToFile = sys_get_temp_dir() . '/todo.php';
         file_put_contents($pathToFile, '<?php ' . "\n" . '//TODO catch me if you can' . "\n" . '?>');
         $result = $this->grumPhpTask->run(

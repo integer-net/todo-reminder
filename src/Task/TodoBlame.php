@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace IntegerNet\TodoBlame\Task;
 
+use Gitonomy\Git\Repository;
 use GrumPHP\Configuration\GrumPHP;
 use GrumPHP\Runner\TaskResult;
 use GrumPHP\Runner\TaskResultInterface;
@@ -12,6 +13,7 @@ use GrumPHP\Task\Context\RunContext;
 use GrumPHP\Task\TaskInterface;
 use IntegerNet\TodoBlame\FileInspector;
 use IntegerNet\TodoBlame\TodoComments;
+use PhpParser\ParserFactory;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -66,14 +68,17 @@ class TodoBlame implements TaskInterface
         if ($files->isEmpty()) {
             return TaskResult::createSkipped($this, $context);
         }
-        $fileInspector = new FileInspector();
+        $fileInspector = new FileInspector(
+            new Repository($this->grumPHP->getGitDir()),
+            (new ParserFactory())->create(ParserFactory::ONLY_PHP7)
+        );
         $comments = new TodoComments();
         foreach ($files as $file) {
             /** @var \SplFileInfo $file */
             $comments->add($fileInspector->findTodoComments((string)$file));
         }
         if ($comments->notEmpty()) {
-            $this->output($comments->format());
+            $this->output($comments->formatText());
             return TaskResult::createNonBlockingFailed($this, $context, 'I found unfinished TODOs!');
         }
         return TaskResult::createPassed($this, $context);
