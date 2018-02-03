@@ -48,11 +48,7 @@ class FileInspector
         if (0 === strpos($filePath, $this->repository->getPath())) {
             $filePath = (string)substr($filePath, strlen($this->repository->getPath()));
         }
-        //TODO need to have line number aligned for working dir and git blame. commit temporarily?
         $fullPath = $this->repository->getPath() . '/' . $filePath;
-        if ($filePath[0] === '/') {
-            $fullPath = $filePath; //TODO remove when GrumPhpTaskTest does not need it anymore
-        }
         $ast = $this->parser->parse(file_get_contents($fullPath));
         $traverser = new NodeTraverser();
         $commentVisitor = new class extends NodeVisitorAbstract
