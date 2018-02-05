@@ -30,7 +30,12 @@ class Application
                 $comments->add($fileInspector->findTodoComments($file->getName()));
             }
         }
-        echo $comments->formatText();
+        if ($comments->notEmpty()) {
+            echo $comments->formatText();
+        } else {
+            echo "TodoReminder has nothing to say.";
+        }
+        echo "\n";
     }
 
     private function options(): array
