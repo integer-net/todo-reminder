@@ -13,9 +13,14 @@ class Application
         $options = $this->options();
 
         $repository = new Repository($options['root'] . '');
-        $files = $repository->getHead()->getCommit()->getDiff()->getFiles();
+        $head = $repository->getHead();
+        if ($head === null) {
+            echo "TodoReminder cannot determine HEAD of repository";
+            exit(1);
+        }
+        $files = $head->getCommit()->getDiff()->getFiles();
         if (empty($files)) {
-            echo "No files to check";
+            echo "TodoReminder found no files to check";
             exit(0);
         }
         $fileInspector = new FileInspector(
