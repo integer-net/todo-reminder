@@ -110,5 +110,6 @@ TXT
             ,
             $comments->formatText()
         );
+        $this->markTestIncomplete('TODO: expect different message if TODO was just introduced in this commit (0)');
     }
 }

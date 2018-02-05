@@ -116,6 +116,11 @@ PHP
         );
     }
 
+    public function testCountCommitsWithModifiedTodoComment()
+    {
+        $this->markTestIncomplete('TODO: test that changed TODO comments are traced back');
+    }
+
     private function createTestGitRepository($path)
     {
         mkdir($path . '/.git', 0700, true);
