@@ -3,6 +3,11 @@
     "description": "GrumPHP Extension to remind you of undone todos",
     "type": "library",
     "bin": ["bin/todo"],
+    "config": {
+        "platform": {
+            "php": "7.1.11"
+        }
+    },
     "require": {
         "php": "~7.1",
         "ext-mbstring": "*",
