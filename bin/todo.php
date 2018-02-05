@@ -26,5 +26,5 @@ if (!$loaded) {
     exit(1);
 }
 
-$app = new \IntegerNet\TodoBlame\Application();
+$app = new \IntegerNet\TodoReminder\Application();
 $app->run();

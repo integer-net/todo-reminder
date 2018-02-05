@@ -1,5 +1,5 @@
 {
-    "name": "integer-net/grumphp-todo-blame",
+    "name": "integer-net/grumphp-todo-reminder",
     "description": "GrumPHP Extension to remind you of undone todos",
     "type": "library",
     "require": {
@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "IntegerNet\\TodoBlame\\": "src/"
+            "IntegerNet\\TodoReminder\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IntegerNet\\TodoBlame\\": "tests/"
+            "IntegerNet\\TodoReminder\\": "tests/"
         }
     },
     "license": "MIT",

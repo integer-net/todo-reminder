@@ -1,6 +1,6 @@
 <?php
 
-namespace IntegerNet\TodoBlame;
+namespace IntegerNet\TodoReminder;
 
 use Gitonomy\Git\Repository;
 use PhpParser\Comment;

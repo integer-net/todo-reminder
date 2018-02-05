@@ -1,6 +1,6 @@
 <?php
 
-namespace IntegerNet\TodoBlame;
+namespace IntegerNet\TodoReminder;
 
 class TodoComments extends \ArrayIterator
 {
