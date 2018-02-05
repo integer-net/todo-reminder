@@ -29,7 +29,7 @@ class FileInspectorTest extends TestCase
 
     protected function setUp()
     {
-        $this->pathToTestRepo = sys_get_temp_dir() . '/' . uniqid('grumphp-todo-reminder-test-', true);
+        $this->pathToTestRepo = sys_get_temp_dir() . '/' . uniqid('todo-reminder-test-', true);
         $this->createTestGitRepository($this->pathToTestRepo);
         $this->parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
         $this->fileInspector = new FileInspector($this->repository, $this->parser);
