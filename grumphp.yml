@@ -5,7 +5,8 @@ parameters:
         composer: []
         phplint: []
         phan: []
-        phpstan: []
+        phpstan:
+            level: 7
         composer_require_checker: []
         phpcs:
             standard: PSR2
