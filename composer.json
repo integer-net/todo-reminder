@@ -5,7 +5,6 @@
     "bin": ["bin/todo"],
     "require": {
         "php": "~7.1",
-        "ext-standard": "*",
         "ext-mbstring": "*",
         "ext-SPL": "*",
         "gitonomy/gitlib": "^1.0",
