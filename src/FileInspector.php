@@ -49,7 +49,14 @@ class FileInspector
             $filePath = (string)substr($filePath, strlen($this->repository->getPath()));
         }
         $fullPath = $this->repository->getPath() . '/' . $filePath;
-        $ast = $this->parser->parse(file_get_contents($fullPath));
+        $fileContents = file_get_contents($fullPath);
+        if ($fileContents === false) {
+            throw new \RuntimeException('File not readable: ' . $filePath);
+        }
+        $ast = $this->parser->parse($fileContents);
+        if ($ast === null) {
+            throw new \RuntimeException('File could not be parsed: ' . $filePath);
+        }
         $traverser = new NodeTraverser();
         $commentVisitor = new class extends NodeVisitorAbstract
         {

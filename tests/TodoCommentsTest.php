@@ -12,7 +12,7 @@ class TodoCommentsTest extends TestCase
 
     private $comment_3;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->comment_1 = new TodoComment('file_1.php', 23, 'foo', 2);
         $this->comment_2 = new TodoComment('file_1.php', 27, 'bar', 4);

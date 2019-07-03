@@ -2,13 +2,12 @@
 
 namespace IntegerNet\TodoReminder;
 
-use Gitonomy\Git\Diff\File;
 use Gitonomy\Git\Repository;
 use PhpParser\ParserFactory;
 
 class Application
 {
-    public function run()
+    public function run(): int
     {
         $options = $this->options();
 
@@ -16,12 +15,12 @@ class Application
         $head = $repository->getHead();
         if ($head === null) {
             echo "TodoReminder cannot determine HEAD of repository";
-            exit(1);
+            return 1;
         }
         $files = $head->getCommit()->getDiff()->getFiles();
         if (empty($files)) {
             echo "TodoReminder found no files to check";
-            exit(0);
+            return 0;
         }
         $fileInspector = new FileInspector(
             $repository,
@@ -29,18 +28,19 @@ class Application
         );
         $comments = new TodoComments();
         foreach ($files as $file) {
-            /** @var File $file */
+            /** @var \Gitonomy\Git\Diff\File $file */
             $fullPath = $repository->getWorkingDir() . '/' . $file->getName();
             if (file_exists($fullPath)) {
                 $comments->add($fileInspector->findTodoComments($file->getName()));
             }
         }
         if ($comments->notEmpty()) {
-            echo $comments->formatText();
-        } else {
-            echo "TodoReminder has nothing to say.";
+            echo $comments->formatText(), "\n";
+            return 0;
         }
-        echo "\n";
+
+        echo "TodoReminder has nothing to say.\n";
+        return 0;
     }
 
     private function options(): array

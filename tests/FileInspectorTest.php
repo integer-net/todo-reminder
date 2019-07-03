@@ -27,14 +27,14 @@ class FileInspectorTest extends TestCase
      */
     private $fileInspector;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->pathToTestRepo = sys_get_temp_dir() . '/' . uniqid('todo-reminder-test-', true);
         $this->createTestGitRepository($this->pathToTestRepo);
         $this->parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
         $this->fileInspector = new FileInspector($this->repository, $this->parser);
     }
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if (strncasecmp(PHP_OS, 'WIN', 3) !== 0) {
             `rm -rf $this->pathToTestRepo`;

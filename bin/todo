@@ -28,4 +28,4 @@ if (!$loaded) {
 }
 
 $app = new \IntegerNet\TodoReminder\Application();
-$app->run();
+exit($app->run());
